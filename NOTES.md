@@ -123,6 +123,60 @@ while doing nothing to the actual data). Always ask: if this specific route had 
 my test actually catch it, or would it still pass anyway?
 
 ---
+## Session 3 — Git, CI, and README ✅ DONE — project fully complete
+
+Led most of this myself from memory (git flow, .gitignore contents, workflow file structure) —
+came together much faster than project 1 since the pattern was already familiar.
+
+**What got done:**
+- `.gitignore` (venv/, __pycache__/, *.pyc, AND .pytest_cache/ — new one I caught myself, since
+  pytest creates this folder too and it hadn't come up in project 1)
+- Git init, GitHub repo created, pushed
+- `requirements.txt` generated and pushed
+- `.github/workflows/tests.yml` — wrote it from memory, correctly recognized it needed almost no
+  changes from project 1's version since the underlying shape (get code → get Python → install
+  deps → start server → run tests) is the same regardless of project specifics
+- README written mostly independently, following the same outline/structure as project 1
+
+**Bugs hit and fixed:**
+- `git push` alone failed with "fatal: No configured push destination" → hadn't yet linked local
+  repo to the new GitHub repo. Fixed with `git remote add origin <url>`, confirmed via
+  `git remote -v`, then `git push -u origin main` (the `-u` flag only needed on the very first
+  push per repo — plain `git push` works after that)
+- CI failed: `pytest: command not found` → checked `pip list` locally and discovered pytest
+  wasn't actually installed in THIS project's venv at all (even though tests had been running
+  successfully earlier — unclear exactly how/why, possibly a leftover pytest from PATH/another
+  env at the time). Comparing local `pip list` output against `requirements.txt` line-by-line
+  was the actual debugging method that caught it — genuinely useful technique: when CI says a
+  package is missing, check `pip list` locally FIRST, then compare against requirements.txt,
+  rather than assuming the file is just stale.
+  Fixed with `pip install pytest`, then regenerated `requirements.txt` fresh.
+
+**Key lesson reinforced this session:** once you understand the SHAPE of a CI pipeline (not just
+memorized commands), it transfers almost unchanged to a new project — confirmed by how little
+the tests.yml file needed to change from project 1.
+
+---
+
+## PROJECT STATUS: COMPLETE ✅
+- Working CRUD API (all 4 methods: GET, POST, PUT, DELETE)
+- Meaningful pytest suite (checks actual behavior/content, not just status codes)
+- CI pipeline running on every push
+- README written and pushed
+- Repo: https://github.com/lauramorenoo/task-list-project
+
+## Still true from Session 1 — Future Improvements (not built, noted for later)
+- [ ] Allow PUT to toggle status back and forth (complete <-> incomplete)
+- [ ] 404 handling / empty-list messaging
+
+## Next steps (planned, not started)
+- [ ] A bigger, more "real-world scenario" THIRD project — details/scope to be figured out fresh,
+      not rushed at the end of a long session
+- [ ] Revisit the verbal 90-second interview walkthrough — now have TWO complete projects to
+      draw from, may be easier than trying with just one
+- [ ] Still want more repetition/comfort with the browser (JS) <-> server (Python) handoff
+      concept before it comes up again in a future front-end
+---
 
 ## Future Improvements (noted for later, not built yet)
 - [ ] Allow PUT to toggle status back and forth (complete <-> incomplete), not just one-way —
